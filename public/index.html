@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Record Store Inventory Manager</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Record Store Inventory Manager</h1>
+      <p>Connected to local MySQL database</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Connection Status -->
+    <section class="card">
+      <h2>Database Status</h2>
+      <p id="dbStatus">Checking connection...</p>
+    </section>
+
+    <!-- Add Product Form -->
+    <section class="card">
+      <h2>Add New Product</h2>
+
+      <form id="addProductForm" class="form-grid">
+        <div class="form-group">
+          <label for="albumId">Album ID</label>
+          <input type="number" id="albumId" name="album_id" required />
+        </div>
+
+        <div class="form-group">
+          <label for="supplierId">Supplier ID</label>
+          <input type="number" id="supplierId" name="supplier_id" />
+        </div>
+
+        <div class="form-group">
+          <label for="format">Format</label>
+          <select id="format" name="format" required>
+            <option value="">Select format</option>
+            <option value="Vinyl">Vinyl</option>
+            <option value="CD">CD</option>
+            <option value="Cassette">Cassette</option>
+            <option value="Digital">Digital</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" step="0.01" min="0.01" required />
+        </div>
+
+        <div class="form-group">
+          <label for="conditionType">Condition</label>
+          <select id="conditionType" name="condition_type" required>
+            <option value="New">New</option>
+            <option value="Used">Used</option>
+            <option value="Collector">Collector</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="stockQuantity">Stock Quantity</label>
+          <input type="number" id="stockQuantity" name="stock_quantity" min="0" required />
+        </div>
+
+        <button type="submit" class="btn primary-btn">Add Product</button>
+      </form>
+
+      <p id="formMessage"></p>
+    </section>
+
+    <!-- Product List -->
+    <section class="card">
+      <div class="section-header">
+        <h2>Products</h2>
+        <button id="refreshProductsBtn" class="btn">Refresh Products</button>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Album ID</th>
+              <th>Album</th>
+              <th>Supplier ID</th>
+              <th>Format</th>
+              <th>Price</th>
+              <th>Condition</th>
+              <th>Stock</th>
+              <th>Update Stock</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+
+          <tbody id="productsTableBody">
+            <!-- Products will load here using app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -111,13 +111,13 @@ body {
 
 .primary-btn {
   grid-column: span 2;
-  background: #2563eb;
+  background: #149037;
   color: white;
   border: none;
 }
 
 .primary-btn:hover {
-  background: #1d4ed8;
+  background: #09640f;
 }
 
 .table-wrapper {

@@ -1,9 +1,3 @@
-// =========================================================
-// RECORD STORE INVENTORY MANAGER
-// Frontend JavaScript
-// Connects HTML page to Express API
-// =========================================================
-
 const dbStatus = document.getElementById('dbStatus');
 const productsTableBody = document.getElementById('productsTableBody');
 const addProductForm = document.getElementById('addProductForm');
@@ -11,10 +5,6 @@ const formMessage = document.getElementById('formMessage');
 const refreshProductsBtn = document.getElementById('refreshProductsBtn');
 
 const API_BASE = '/api';
-
-// =========================================================
-// TEST DATABASE CONNECTION
-// =========================================================
 
 async function checkDatabaseConnection() {
   try {
@@ -32,10 +22,6 @@ async function checkDatabaseConnection() {
     dbStatus.style.color = 'red';
   }
 }
-
-// =========================================================
-// LOAD PRODUCTS
-// =========================================================
 
 async function loadProducts() {
   try {
@@ -111,10 +97,6 @@ async function loadProducts() {
   }
 }
 
-// =========================================================
-// ADD PRODUCT
-// =========================================================
-
 async function addProduct(event) {
   event.preventDefault();
 
@@ -157,10 +139,6 @@ async function addProduct(event) {
   }
 }
 
-// =========================================================
-// UPDATE PRODUCT STOCK
-// =========================================================
-
 async function updateStock(productId) {
   const stockInput = document.getElementById(`stock-${productId}`);
   const stockQuantity = Number(stockInput.value);
@@ -194,10 +172,6 @@ async function updateStock(productId) {
   }
 }
 
-// =========================================================
-// DELETE PRODUCT
-// =========================================================
-
 async function deleteProduct(productId) {
   const confirmDelete = confirm(
     `Are you sure you want to delete product ID ${productId}?`
@@ -225,17 +199,9 @@ async function deleteProduct(productId) {
   }
 }
 
-// =========================================================
-// EVENT LISTENERS
-// =========================================================
-
 addProductForm.addEventListener('submit', addProduct);
 
 refreshProductsBtn.addEventListener('click', loadProducts);
-
-// =========================================================
-// INITIAL PAGE LOAD
-// =========================================================
 
 checkDatabaseConnection();
 loadProducts();

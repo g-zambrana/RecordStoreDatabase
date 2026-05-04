@@ -1,8 +1,3 @@
-// =========================================================
-// RECORD STORE INVENTORY MANAGER
-// Express Server + MySQL Connection
-// =========================================================
-
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
@@ -22,10 +17,8 @@ const db = mysql.createPool({
   port: process.env.DB_PORT
 });
 
-// =========================================================
-// TEST DATABASE CONNECTION
-// =========================================================
 
+// database connection
 app.get('/api/test', async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -38,10 +31,7 @@ app.get('/api/test', async (req, res) => {
   }
 });
 
-// =========================================================
-// RETRIEVE PRODUCTS
-// =========================================================
-
+//retrieve products
 app.get('/api/products', async (req, res) => {
   try {
     const [rows] = await db.query(`
@@ -65,10 +55,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// =========================================================
-// ADD PRODUCT
-// =========================================================
-
+//add products
 app.post('/api/products', async (req, res) => {
   try {
     const {
@@ -103,10 +90,8 @@ app.post('/api/products', async (req, res) => {
   }
 });
 
-// =========================================================
-// UPDATE PRODUCT STOCK
-// =========================================================
 
+//update stock
 app.put('/api/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -125,10 +110,9 @@ app.put('/api/products/:id', async (req, res) => {
   }
 });
 
-// =========================================================
-// DELETE PRODUCT
-// =========================================================
 
+
+//delete product
 app.delete('/api/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -156,34 +140,7 @@ app.delete('/api/products/:id', async (req, res) => {
   }
 });
 
-// =========================================================
-// ADD ALBUM
-// =========================================================
-
-app.post('/api/albums', async (req, res) => {
-  try {
-    const { album_title, release_year, genre_id } = req.body;
-
-    const [result] = await db.query(
-      `INSERT INTO albums 
-        (album_title, release_year, genre_id)
-       VALUES (?, ?, ?)`,
-      [album_title, release_year, genre_id]
-    );
-
-    res.json({
-      message: 'Album added successfully',
-      album_id: result.insertId
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// =========================================================
-// START SERVER
-// =========================================================
-
+//start server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

@@ -3,6 +3,8 @@ const productsTableBody = document.getElementById('productsTableBody');
 const addProductForm = document.getElementById('addProductForm');
 const formMessage = document.getElementById('formMessage');
 const refreshProductsBtn = document.getElementById('refreshProductsBtn');
+const salesTableBody = document.getElementById('salesTableBody');
+const refreshSalesBtn = document.getElementById('refreshSalesBtn');
 
 const API_BASE = '/api';
 
@@ -199,9 +201,61 @@ async function deleteProduct(productId) {
   }
 }
 
-addProductForm.addEventListener('submit', addProduct);
+async function loadRecentSales() {
+  try {
+    salesTableBody.innerHTML = `
+      <tr>
+        <td colspan="8">Loading recent sales...</td>
+      </tr>
+    `;
 
+    const response = await fetch(`${API_BASE}/sales/recent`);
+    const sales = await response.json();
+
+    if (!response.ok) {
+      throw new Error(sales.error || 'Failed to load recent sales');
+    }
+
+    salesTableBody.innerHTML = '';
+
+    if (sales.length === 0) {
+      salesTableBody.innerHTML = `
+        <tr>
+          <td colspan="8">No recent sales found.</td>
+        </tr>
+      `;
+      return;
+    }
+
+    sales.forEach((sale) => {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${sale.sale_id}</td>
+        <td>${new Date(sale.sale_date).toLocaleDateString()}</td>
+        <td>${sale.customer_name || 'Guest'}</td>
+        <td>${sale.album_title}</td>
+        <td>${sale.format}</td>
+        <td>${sale.quantity}</td>
+        <td>$${Number(sale.total_price).toFixed(2)}</td>
+        <td>${sale.payment_method || 'N/A'}</td>
+      `;
+
+      salesTableBody.appendChild(row);
+    });
+  } catch (error) {
+    salesTableBody.innerHTML = `
+      <tr>
+        <td colspan="8">Error: ${error.message}</td>
+      </tr>
+    `;
+  }
+}
+
+addProductForm.addEventListener('submit', addProduct);
 refreshProductsBtn.addEventListener('click', loadProducts);
+refreshSalesBtn.addEventListener('click', loadRecentSales);
 
 checkDatabaseConnection();
 loadProducts();
+loadRecentSales();

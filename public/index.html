@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +16,7 @@
       <h2>Add New Product</h2>
 
       <form id="addProductForm" class="form-grid">
+
         <div class="form-group">
           <label for="albumId">Album ID</label>
           <input type="number" id="albumId" name="album_id" required />
@@ -58,16 +58,19 @@
         </div>
 
         <button type="submit" class="btn primary-btn">Add Product</button>
+
       </form>
 
       <p id="formMessage"></p>
     </section>
 
+    <!-- PRODUCTS TABLE -->
     <section class="card">
       <div class="section-header">
         <h2>Products</h2>
         <button id="refreshProductsBtn" class="btn">Refresh Products</button>
       </div>
+
       <div class="table-wrapper">
         <table>
           <thead>
@@ -84,15 +87,39 @@
               <th>Delete</th>
             </tr>
           </thead>
+          <tbody id="productsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
 
-          <tbody id="productsTableBody">
-          </tbody>
+    <!-- RECENT SALES -->
+    <section class="card">
+      <div class="section-header">
+        <h2>Recent Sale History</h2>
+        <button id="refreshSalesBtn" class="btn">Refresh Sales</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Sale ID</th>
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Album</th>
+              <th>Format</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Payment</th>
+            </tr>
+          </thead>
+          <tbody id="salesTableBody"></tbody>
         </table>
       </div>
     </section>
 
   </main>
+
   <script src="app.js"></script>
 </body>
-
 </html>

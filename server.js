@@ -46,7 +46,7 @@ app.get('/api/products', async (req, res) => {
         p.stock_quantity
       FROM products p
       JOIN albums a ON p.album_id = a.album_id
-      ORDER BY p.product_id;
+      ORDER BY p.album_id ASC, p.product_id ASC;
     `);
 
     res.json(rows);
@@ -135,6 +135,36 @@ app.delete('/api/products/:id', async (req, res) => {
     );
 
     res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// retrieve recent sale history
+app.get('/api/sales/recent', async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        s.sale_id,
+        s.sale_date,
+        CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+        a.album_title,
+        p.format,
+        si.quantity,
+        si.unit_price,
+        (si.quantity * si.unit_price) AS total_price,
+        pay.payment_method
+      FROM sales s
+      LEFT JOIN customers c ON s.customer_id = c.customer_id
+      JOIN sale_items si ON s.sale_id = si.sale_id
+      JOIN products p ON si.product_id = p.product_id
+      JOIN albums a ON p.album_id = a.album_id
+      LEFT JOIN payments pay ON s.sale_id = pay.sale_id
+      ORDER BY s.sale_date DESC
+      LIMIT 10;
+    `);
+
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

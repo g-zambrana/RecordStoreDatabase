@@ -1,0 +1,90 @@
+## Overview
+
+This is a simple web app to manage a record store database.
+You can:
+
+* Add products
+* View all products
+* Update stock
+* Delete products
+* View recent sales
+
+---
+
+## Requirements
+
+Make sure you have:
+
+* Node.js installed
+* MySQL installed
+
+---
+
+## Setup Instructions
+
+### 1. Clone or download the project
+
+Put the project folder on your computer.
+
+---
+
+### 2. Install dependencies
+
+Open terminal in the project folder and run:
+
+```
+npm install
+```
+
+---
+
+### 3. Create a `.env` file
+
+In the root folder, create a file named `.env` and add:
+
+```
+DB_HOST=localhost
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=record_store_db
+DB_PORT=3306
+```
+
+---
+
+### 4. Set up the database
+
+Run your SQL script in MySQL to create all tables.
+
+---
+
+### 5. Start the server
+
+Run:
+
+```
+node server.js
+```
+
+---
+
+### 6. Open the app
+
+Go to:
+
+```
+http://localhost:3000
+```
+
+---
+
+## Notes
+
+* Make sure MySQL is running before starting the server
+* If something doesn’t load, check the terminal for errors
+
+---
+
+## Done
+
+You should now see the GUI and be able to manage products and view sales.
